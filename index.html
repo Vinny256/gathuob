@@ -2,331 +2,527 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Vinnie Digital Hub - Mind & Market Bot Engine</title>
     <style>
         :root {
             --primary-orange: #ff6600;
+            --glow-orange: rgba(255, 102, 0, 0.35);
             --dark-orange: #cc5200;
-            --bg-dark: #0b0e14;
-            --bg-card: #141923;
-            --bg-input: #1a2232;
+            --bg-dark: #07090e;
+            --bg-card: #0f141c;
+            --bg-input: #161f2b;
             --text-main: #ffffff;
-            --text-muted: #8c9ba5;
-            --border-color: #26324d;
+            --text-muted: #798b96;
+            --border-color: #1e293b;
             --success-green: #00e676;
         }
 
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-dark);
             color: var(--text-main);
             margin: 0;
             padding: 0;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            align-items: flex-start;
         }
 
         .container {
             width: 100%;
-            max-width: 950px;
-            margin: 20px;
+            max-width: 600px; /* Snug, native app feel on all devices */
             background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-            overflow: hidden;
+            min-height: 100vh;
+            border-left: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
+            position: relative;
+            padding-bottom: 90px; /* Safe space for floating elements */
         }
 
         .hidden { display: none !important; }
 
-        /* --- PSYCHOLOGICAL PRE-LOGIN INTERFACE --- */
+        /* --- MODERN HIGH-ENERGY AUTH INTERFACE --- */
         .auth-wrapper {
+            padding: 30px 20px;
             display: flex;
             flex-direction: column;
-            padding: 40px;
+        }
+
+        .brand-header {
             text-align: center;
+            margin-bottom: 30px;
+            position: relative;
         }
 
         .brand-header h1 {
             color: var(--primary-orange);
-            margin: 0 0 10px 0;
-            font-size: 2.5rem;
-            letter-spacing: 1px;
+            margin: 0 0 5px 0;
+            font-size: 2.2rem;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+            text-shadow: 0 0 20px var(--glow-orange);
         }
 
         .brand-header p {
             color: var(--text-muted);
-            margin-bottom: 30px;
+            margin: 0;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .jung-quote-container {
-            background: rgba(255, 102, 0, 0.04);
-            border-left: 4px solid var(--primary-orange);
-            padding: 20px;
-            margin: 0 auto 35px auto;
-            max-width: 650px;
-            border-radius: 0 8px 8px 0;
-            text-align: left;
+        /* Street-smart Psychology Cards */
+        .quote-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 35px;
         }
 
-        .jung-quote {
-            font-style: italic;
-            font-size: 1.1rem;
-            line-height: 1.6;
-            color: #f2f4f7;
-            margin-bottom: 10px;
+        .mindset-card {
+            background: linear-gradient(135deg, #131a26 0%, #0d121a 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 18px;
+            position: relative;
+            overflow: hidden;
         }
 
-        .jung-author {
-            text-align: right;
+        .mindset-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--primary-orange);
+        }
+
+        .card-tag {
+            font-size: 0.75rem;
             font-weight: bold;
             color: var(--primary-orange);
-            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .quote-text {
+            font-size: 1.05rem;
+            line-height: 1.5;
+            font-weight: 500;
+            color: #f1f5f9;
+        }
+
+        .quote-author {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-align: right;
+            margin-top: 6px;
+        }
+
+        .ferrari-card {
+            background: linear-gradient(135deg, rgba(255,102,0,0.1) 0%, rgba(15,20,28,0) 100%);
+            border: 1px solid rgba(255,102,0,0.25);
+        }
+
+        .ferrari-card .quote-text {
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.2rem;
+            letter-spacing: -0.3px;
         }
 
         .risk-disclosure-box {
-            background: #1c1412;
-            border: 1px solid #4a2711;
-            border-radius: 8px;
-            padding: 20px;
-            max-width: 650px;
-            margin: 0 auto 30px auto;
-            text-align: left;
+            background: #140f0c;
+            border: 1px solid #3d1f0b;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 25px;
         }
 
         .risk-disclosure-box h3 {
-            color: var(--primary-orange);
-            margin-top: 0;
-            font-size: 15px;
+            color: #ff4400;
+            margin: 0 0 6px 0;
+            font-size: 0.85rem;
             letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
 
         .risk-disclosure-box p {
-            font-size: 13px;
-            color: #d0d5dd;
-            line-height: 1.5;
+            font-size: 0.85rem;
+            color: #cbd5e1;
+            line-height: 1.4;
             margin: 0;
         }
 
-        .btn {
-            background-color: var(--primary-orange);
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
-            padding: 14px 32px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background 0.2s, transform 0.1s;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto;
+        /* Fixed / Floating Thumb-Ready Connect Trigger Button */
+        .action-button-container {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 40px);
+            max-width: 560px;
+            z-index: 99;
         }
 
-        .btn:hover { background-color: var(--dark-orange); }
-        .btn:active { transform: scale(0.98); }
+        .btn {
+            background: linear-gradient(180deg, var(--primary-orange) 0%, var(--dark-orange) 100%);
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(255, 102, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.2s ease;
+        }
 
-        /* --- TABBED APPLICATION SYSTEM (POST-LOGIN) --- */
+        .btn:active {
+            transform: scale(0.97);
+            box-shadow: 0 3px 10px rgba(255, 102, 0, 0.2);
+        }
+
+        /* --- MODERN TABBED SYSTEM (POST-LOGIN) --- */
         .app-layout { display: flex; flex-direction: column; }
 
         .app-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 30px;
+            padding: 16px 20px;
             border-bottom: 1px solid var(--border-color);
-            background: rgba(20, 25, 35, 0.8);
+            background: rgba(15, 20, 28, 0.9);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            backdrop-filter: blur(8px);
         }
 
         .user-profile-badge {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 10px;
         }
 
         .balance-pill {
-            background: #112a1d;
-            border: 1px solid #1f5737;
+            background: #091e14;
+            border: 1px solid #14432c;
             color: var(--success-green);
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-weight: bold;
-            font-size: 14px;
+            padding: 6px 12px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 0.85rem;
         }
 
         .logout-link {
             color: var(--text-muted);
             cursor: pointer;
-            font-size: 13px;
-            text-decoration: underline;
+            font-size: 0.8rem;
+            text-decoration: none;
+            background: rgba(255,255,255,0.05);
+            padding: 6px 10px;
+            border-radius: 6px;
         }
-        .logout-link:hover { color: #f04438; }
 
-        /* Dynamic Tabs Navigation Header */
+        /* Dynamic App Mobile Bottom Navigation Bar */
         .tabs-nav {
             display: flex;
-            background: #0f131c;
-            padding: 0 20px;
-            border-bottom: 1px solid var(--border-color);
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 600px;
+            background: rgba(15, 20, 28, 0.95);
+            border-top: 1px solid var(--border-color);
+            z-index: 90;
+            backdrop-filter: blur(12px);
+            padding-bottom: env(safe-area-inset-bottom);
         }
 
         .tab-link {
-            padding: 16px 24px;
+            flex: 1;
+            padding: 14px 5px;
             color: var(--text-muted);
             font-weight: 600;
-            font-size: 14px;
+            font-size: 0.75rem;
+            text-align: center;
             cursor: pointer;
-            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .tab-link.active {
+            color: var(--primary-orange);
+            background: linear-gradient(0deg, rgba(255,102,0,0.05) 0%, rgba(255,102,0,0) 100%);
+        }
+
+        .tab-link::before {
+            content: '';
+            width: 16px;
+            height: 3px;
+            background: transparent;
+            border-radius: 2px;
             transition: all 0.2s;
         }
 
-        .tab-link:hover { color: var(--text-main); }
-        .tab-link.active {
-            color: var(--primary-orange);
-            border-bottom-color: var(--primary-orange);
-            background: rgba(255, 102, 0, 0.02);
+        .tab-link.active::before {
+            background: var(--primary-orange);
+            box-shadow: 0 0 8px var(--primary-orange);
         }
 
-        /* Tabs Panels Content Workspace */
-        .tabs-content-viewport { padding: 30px; min-height: 350px; }
+        /* Workspace Content Panels Layout */
+        .tabs-content-viewport { padding: 20px; }
         .tab-panel { display: none; }
         .tab-panel.active { display: block; }
 
-        /* Panel Card Structures */
-        .grid-layout { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+        /* Modern Panel Mobile Card Structures */
+        .grid-layout { display: flex; flex-direction: column; gap: 15px; }
+        
         .feature-card {
-            background: #19202e;
+            background: #131924;
             border: 1px solid var(--border-color);
-            border-radius: 10px;
-            padding: 25px;
-            text-align: left;
-            position: relative;
+            border-radius: 12px;
+            padding: 20px;
         }
-        .feature-card h3 { color: var(--primary-orange); margin: 0 0 10px 0; }
-        .feature-card p { color: var(--text-muted); font-size: 14px; line-height: 1.5; margin: 0 0 20px 0; }
+
+        .feature-card h3 { 
+            color: var(--primary-orange); 
+            margin: 0 0 8px 0; 
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .feature-card p { 
+            color: var(--text-muted); 
+            font-size: 0.88rem; 
+            line-height: 1.4; 
+            margin: 0 0 15px 0; 
+        }
         
         .status-indicator {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            font-size: 13px;
-            font-weight: bold;
+            font-size: 0.8rem;
+            font-weight: 700;
+            background: rgba(0,0,0,0.2);
+            padding: 6px 12px;
+            border-radius: 6px;
         }
-        .dot { width: 8px; height: 8px; border-radius: 50%; background: #667085; }
+
+        .dot { width: 8px; height: 8px; border-radius: 50%; background: #475569; }
         .dot.active { background: var(--success-green); box-shadow: 0 0 8px var(--success-green); }
+
+        /* --- STICKY FLOATING SUPPORT WIDGET HUB --- */
+        .support-floating-hub {
+            position: fixed;
+            bottom: 85px; /* Sits cleanly above mobile navigation panels */
+            right: 20px;
+            z-index: 99;
+        }
+
+        .support-trigger-circle {
+            width: 50px;
+            height: 50px;
+            background: #ff5500;
+            border-radius: 50%;
+            box-shadow: 0 4px 15px rgba(255, 85, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-weight: 900;
+            font-size: 20px;
+            color: white;
+            transition: all 0.2s ease;
+            border: 2px solid rgba(255,255,255,0.1);
+        }
+
+        .support-trigger-circle:active { transform: scale(0.9); }
+
+        .support-dropdown-menu {
+            position: absolute;
+            bottom: 60px;
+            right: 0;
+            background: #161e29;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            width: 220px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            padding: 8px;
+            display: none;
+        }
+
+        .support-dropdown-menu.open { display: block; }
+
+        .support-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            color: white;
+            text-decoration: none;
+            font-size: 0.88rem;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+
+        .support-item:hover { background: rgba(255,102,0,0.1); color: var(--primary-orange); }
     </style>
 </head>
 <body>
 
     <div class="container">
         
+        <!-- =================== PRE-LOGIN VIEW =================== -->
         <div id="auth-section" class="auth-wrapper">
             <div class="brand-header">
                 <h1>VINNIE DIGITAL HUB</h1>
-                <p>Advanced Quantitative Algorithmic Execution Systems</p>
+                <p>Quantum Bot Execution System</p>
             </div>
 
-            <div class="jung-quote-container">
-                <div class="jung-quote">
-                    "Until you make the unconscious conscious, it will direct your life and you will call it fate."
+            <!-- Street-Smart Psychological Mindset Grid Layout -->
+            <div class="quote-stack">
+                <div class="mindset-card ferrari-card">
+                    <div class="card-tag">Market Reality</div>
+                    <div class="quote-text">"NO RISK, NO FERRARI."</div>
                 </div>
-                <div class="jung-author">— Carl Gustav Jung</div>
+
+                <div class="mindset-card">
+                    <div class="card-tag">Psychological Trap</div>
+                    <div class="quote-text">"Until you make the unconscious conscious, it will direct your life and you will call it fate."</div>
+                    <div class="quote-author">— Carl Jung</div>
+                </div>
+
+                <div class="mindset-card">
+                    <div class="card-tag">Swahili Wisdom</div>
+                    <div class="quote-text">"Bahati ya mwenzako usilalie mlango wazi."</div>
+                    <div class="quote-author">— Market Mantra</div>
+                </div>
             </div>
 
             <div class="risk-disclosure-box">
-                <h3>PSYCHOLOGICAL LIMITS & RISK MANIFESTO</h3>
+                <h3>System Execution Safety Boundary</h3>
                 <p>
-                    Trading derivative options involves highly automated algorithmic volatility structures. Financial markets act as large-scale psychological mirrors reflecting fear and greed. Before enabling algorithmic modules, verify your capital risk mitigation levels. System algorithms carry mechanical execution hazards. Never hazard resources you cannot completely afford to lose.
+                    Algorithmic volatility systems carry severe execution risks. Markets act as large-scale emotional mirrors. Set strict stop bounds before activating active scripts.
                 </p>
             </div>
 
-            <button class="btn" id="login-btn">Connect Instantly via Deriv OAuth</button>
+            <!-- Fixed Floating Connection Button Target Layout Wrapper -->
+            <div class="action-button-container">
+                <button class="btn" id="login-btn">
+                    <span>Connect Instantly via Deriv OAuth</span>
+                </button>
+            </div>
         </div>
 
+        <!-- =================== POST-LOGIN WORKSPACE APPARATUS =================== -->
         <div id="dashboard-section" class="app-layout hidden">
             
             <header class="app-header">
                 <div>
-                    <h2 style="margin:0; font-size:1.4rem; color:var(--primary-orange);">Vinnie Digital Bot Workspace</h2>
+                    <h2 style="margin:0; font-size:1.1rem; color:var(--primary-orange); font-weight:800;">VINNIE HUB ACTIVE</h2>
                 </div>
                 <div class="user-profile-badge">
-                    <span style="font-size:14px; color:var(--text-muted);" id="acc-id">Account: ---</span>
-                    <div class="balance-pill"><span id="acc-currency">USD</span> <span id="acc-balance">0.00</span></div>
-                    <span class="logout-link" id="logout-btn">Disconnect</span>
+                    <span style="font-size: 11px; color: var(--text-muted); font-weight: bold;" id="acc-id">CR---</span>
+                    <div class="balance-pill"><span id="acc-balance">0.00</span> <span id="acc-currency">USD</span></div>
+                    <span class="logout-link" id="logout-btn">Exit</span>
                 </div>
             </header>
 
-            <nav class="tabs-nav">
-                <div class="tab-link active" data-target="panel-overview">Main Control</div>
-                <div class="tab-link" data-target="panel-freebots">Free Bots</div>
-                <div class="tab-link" data-target="panel-premiumbots">Premium Automation</div>
-                <div class="tab-link" data-target="panel-manual">Manual Execution Matrix</div>
-            </nav>
-
+            <!-- Central Content Display Area Layout Panels Workspace -->
             <main class="tabs-content-viewport">
                 
+                <!-- Panel 1: Main Control View Layout -->
                 <div id="panel-overview" class="tab-panel active">
                     <div class="grid-layout">
                         <div class="feature-card">
-                            <h3>Telemetry Watch</h3>
-                            <p>Tracks current tick processing engine connectivity streams for Volatility indices.</p>
+                            <h3>Telemetry Stream</h3>
+                            <p>Tracks live WebSocket package parsing connectivity streams for synthetic index vectors.</p>
                             <div class="status-indicator">
                                 <div class="dot active" id="telemetry-dot"></div>
-                                <span id="telemetry-status-text">Awaiting Authorization Network...</span>
+                                <span id="telemetry-status-text">Handshake pending...</span>
                             </div>
                         </div>
                         <div class="feature-card">
-                            <h3>Risk Adaptive State</h3>
-                            <p>Displays risk management parameters used for automated position recovery.</p>
-                            <div style="font-size: 14px; color: var(--text-muted);">
-                                Current Strategy: <strong style="color:white;" id="lbl-barrier">Under 4</strong><br>
-                                Calculated Stake: <strong style="color:white;" id="lbl-stake">$1.00</strong>
+                            <h3>Adaptive Position Target Matrix</h3>
+                            <p>Dynamic recovery thresholds used by running processing scripts.</p>
+                            <div style="font-size: 14px; color: var(--text-muted); display:flex; gap:20px;">
+                                <span>Barrier: <strong style="color:white;" id="lbl-barrier">Under 4</strong></span>
+                                <span>Stake: <strong style="color:white;" id="lbl-stake">$1.00</strong></span>
                             </div>
                         </div>
                     </div>
                 </div>
 
+                <!-- Panel 2: Free Open Source Automation Scripts -->
                 <div id="panel-freebots" class="tab-panel">
-                    <h3 style="color:var(--primary-orange); margin-top:0;">Available Open Source Automated Strategy Implementations</h3>
-                    <p style="color:var(--text-muted);">Standard mechanical configuration loops compiled for educational sandbox deployment environments.</p>
-                    <div class="grid-layout">
-                        <div class="feature-card">
-                            <h3>Vinnie Digit Under Suite</h3>
-                            <p>Adaptive 1-Tick contract matching execution engine utilizing dynamic switching barriers (Under 4 / Under 3 rulesets).</p>
-                            <button class="btn" style="padding:10px 20px; font-size:13px; width:100%;">Initialize Bot Loop</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="panel-premiumbots" class="tab-panel">
-                    <h3 style="color:var(--primary-orange); margin-top:0;">Proprietary Predictive Intelligence Bots</h3>
-                    <p style="color:var(--text-muted);">High-performance trading structures incorporating strict risk constraints and protective boundaries.</p>
-                    <div class="grid-layout">
-                        <div class="feature-card" style="border-color: #513011;">
-                            <h3>Vinnie Digit Arbitrage Pro</h3>
-                            <p>High-frequency analytical matrix scanning digit pattern density anomalies across multi-index ticks over precise durations.</p>
-                            <button class="btn" style="padding:10px 20px; font-size:13px; width:100%; background:#4d2000; border:1px solid var(--primary-orange); cursor:not-allowed;" disabled>Upgrade Profile Tier</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="panel-manual" class="tab-panel">
-                    <h3 style="color:var(--primary-orange); margin-top:0;">Direct Order Execution Matrix</h3>
-                    <p style="color:var(--text-muted);">Direct market interaction bypass mechanism for executing trades outside the automated system loops.</p>
                     <div class="feature-card">
-                        <p>Websocket API terminal routing pipeline connection active. Choose a contract parameters template package to push to the exchange engine.</p>
+                        <h3>Vinnie Digit Under Engine</h3>
+                        <p>Adaptive 1-Tick contract matching execution script running sequential barrier shift triggers (Under 4/3 recovery matrices).</p>
+                        <button class="btn" style="padding:12px; font-size:14px; box-shadow:none;">Launch Script Loop</button>
                     </div>
                 </div>
 
+                <!-- Panel 3: Premium Closed Source Quant Modules -->
+                <div id="panel-premiumbots" class="tab-panel">
+                    <div class="feature-card" style="border: 1px dashed #3d2314; background:#14110f;">
+                        <h3>Vinnie Arbitrage Pro Matrix</h3>
+                        <p>High-frequency tick density scanners auditing probability anomalies over defined structural tick strings.</p>
+                        <button class="btn" style="padding:12px; font-size:14px; background:#261810; border:1px solid #ff5500; color:#ffaa7f; box-shadow:none; cursor:not-allowed;" disabled>Tier Locked</button>
+                    </div>
+                </div>
+
+                <!-- Panel 4: Direct Interactive Manual Clearing Layout -->
+                <div id="panel-manual" class="tab-panel">
+                    <div class="feature-card">
+                        <h3>Manual Clearing Route</h3>
+                        <p>Direct terminal routing framework for instantiating custom structural transactions on the raw exchange ticker pool.</p>
+                    </div>
+                </div>
             </main>
+
+            <!-- Navigation Mobile App Dock Panel Tabs Links Bar Layout Components -->
+            <nav class="tabs-nav">
+                <div class="tab-link active" data-target="panel-overview"><span>Control</span></div>
+                <div class="tab-link" data-target="panel-freebots"><span>Free Bots</span></div>
+                <div class="tab-link" data-target="panel-premiumbots"><span>Premium</span></div>
+                <div class="tab-link" data-target="panel-manual"><span>Manual</span></div>
+            </nav>
+        </div>
+
+        <!-- Sticky Floating Customer Support Hub Component Widget Module -->
+        <div class="support-floating-hub">
+            <div class="support-trigger-circle" id="support-toggle-btn">💬</div>
+            <div class="support-dropdown-menu" id="support-dropdown">
+                <a href="https://wa.me/254700000000" target="_blank" class="support-item">🟢 WhatsApp Assistance</a>
+                <a href="https://t.me/VinnieDigitalHub" target="_blank" class="support-item">🔵 Telegram Channel</a>
+            </div>
         </div>
 
     </div>
 
     <script src="app.js"></script>
 </body>
-</html>
+    </html>
+    
